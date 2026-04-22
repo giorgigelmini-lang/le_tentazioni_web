@@ -218,15 +218,15 @@ p:last-child { margin-bottom: 0; }
   align-items: center;
 }
 .header-logo-img {
-  height: 60px;
+  height: 56px;
   width: auto;
-  max-width: 250px;
-  background: transparent;
+  max-width: 220px;
   border: none;
   padding: 0;
   margin: 0;
   box-shadow: none;
-  mix-blend-mode: normal;
+  mix-blend-mode: lighten;
+  display: block;
 }
 .site-logo span { color: var(--color-gold); }
 .nav-links {
