@@ -50,6 +50,8 @@ document.querySelectorAll('.orari-table tr[data-day]').forEach(row => {
 // --- Footer year ---
 const yearEl = document.getElementById('footerYear');
 if (yearEl) yearEl.textContent = new Date().getFullYear();
+const yearLegal = document.getElementById('footerYearLegal');
+if (yearLegal) yearLegal.textContent = new Date().getFullYear();
 
 // --- Smooth scroll for anchor links ---
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

@@ -398,55 +398,300 @@
   </section>
 
   <!-- ===== SERVIZI ===== -->
+  <style>
+    .srv-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) { .srv-grid { grid-template-columns: 1fr; } }
+
+    .srv-card {
+      background: var(--color-white);
+      border: 1px solid rgba(216,183,138,.35);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: border-color .25s, box-shadow .25s;
+    }
+    .srv-card.is-open {
+      border-color: var(--color-gold);
+      box-shadow: 0 6px 28px rgba(216,183,138,.18);
+    }
+    .srv-card-header {
+      display: flex; align-items: center; gap: 18px;
+      padding: 24px 22px;
+      cursor: pointer;
+      transition: background .2s;
+      user-select: none;
+    }
+    .srv-card-header:hover { background: var(--color-cream); }
+    .srv-card-icon {
+      width: 52px; height: 52px; flex-shrink: 0;
+      background: var(--color-gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-white); font-size: 1.15rem;
+      transition: transform .25s, background .25s;
+    }
+    .srv-card.is-open .srv-card-icon {
+      transform: scale(1.08);
+      background: var(--color-gold-dark);
+    }
+    .srv-card-title { flex: 1; }
+    .srv-card-title h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; color: var(--color-dark);
+      margin: 0 0 5px; font-weight: 700;
+    }
+    .srv-card-label {
+      font-size: .68rem; color: var(--color-gold);
+      text-transform: uppercase; letter-spacing: .12em;
+      font-family: 'Lato', sans-serif;
+      transition: opacity .2s;
+    }
+    .srv-card.is-open .srv-card-label { opacity: 0; }
+    .srv-card-chevron {
+      color: var(--color-gold); font-size: .82rem;
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      flex-shrink: 0;
+    }
+    .srv-card.is-open .srv-card-chevron { transform: rotate(180deg); }
+    .srv-card-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height .45s cubic-bezier(.4,0,.2,1), opacity .28s ease;
+      opacity: 0;
+    }
+    .srv-card.is-open .srv-card-body { opacity: 1; }
+    .srv-card-body-inner {
+      padding: 0 22px 24px;
+      border-top: 1px solid var(--color-cream-dark);
+    }
+    .srv-item-list { display: flex; flex-direction: column; gap: 3px; margin-top: 16px; }
+    .srv-item {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 14px; background: var(--color-cream);
+      border-radius: var(--radius-md); gap: 20px; transition: background .18s;
+    }
+    .srv-item:hover { background: var(--color-cream-dark); }
+    .srv-item-left h4 { font-size: .9rem; margin-bottom: 3px; color: var(--color-text); font-weight: 700; }
+    .srv-item-left p  { font-size: .8rem; color: var(--color-muted); margin: 0; }
+    .srv-item-price {
+      font-family: 'Playfair Display', serif; font-size: 1rem;
+      color: var(--color-gold); font-weight: 700;
+      white-space: nowrap; flex-shrink: 0; text-align: right;
+    }
+    .srv-item-note { font-size: .66rem; color: var(--color-muted); display: block; font-family: 'Lato', sans-serif; }
+    .srv-cta {
+      background: var(--color-cream-dark); border-radius: var(--radius-md);
+      padding: 18px 20px; text-align: center; margin-top: 16px;
+      border: 1px solid rgba(216,183,138,.3);
+    }
+    .srv-cta p { color: var(--color-muted); margin-bottom: 13px; font-size: .85rem; }
+    .prices-note {
+      text-align: center; font-size: .8rem; color: var(--color-muted);
+      margin-top: 36px; padding: 16px;
+      border: 1px dashed rgba(216,183,138,.35); border-radius: var(--radius-md);
+    }
+  </style>
+
   <section class="section section--cream" id="servizi" aria-labelledby="servizi-heading">
     <div class="container">
       <div class="section-header">
         <span class="label">I nostri servizi</span>
         <h2 id="servizi-heading">Per ogni capello, la cura giusta</h2>
         <hr class="divider-gold">
-        <p>Dal taglio quotidiano all'acconciatura da cerimonia, ogni trattamento è pensato per te.</p>
+        <p>Clicca su un servizio per scoprire i dettagli e i prezzi.</p>
       </div>
 
-      <div class="services-grid">
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-scissors"></i></div>
-          <h3>Taglio &amp; Styling</h3>
-          <p>Taglio personalizzato, piega e asciugatura professionale per un look sempre impeccabile.</p>
+      <div class="srv-grid">
+
+        <!-- TAGLIO -->
+        <div class="srv-card" id="scard-taglio">
+          <div class="srv-card-header" onclick="srvCard('scard-taglio')" role="button" aria-expanded="false" tabindex="0">
+            <div class="srv-card-icon"><i class="fa-solid fa-scissors"></i></div>
+            <div class="srv-card-title">
+              <h3>Taglio &amp; Styling</h3>
+              <span class="srv-card-label">Vedi Listino →</span>
+            </div>
+            <i class="fa-solid fa-chevron-down srv-card-chevron" aria-hidden="true"></i>
+          </div>
+          <div class="srv-card-body">
+            <div class="srv-card-body-inner">
+              <div class="srv-item-list">
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Taglio Donna</h4><p>Taglio personalizzato con consulenza stilistica inclusa</p></div>
+                  <div class="srv-item-price">da 25€<span class="srv-item-note">inclusa piega</span></div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Taglio Bambina (fino 10 anni)</h4><p>Taglio delicato in ambiente accogliente</p></div>
+                  <div class="srv-item-price">da 15€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Taglio Uomo</h4><p>Taglio classico o moderno con finitura</p></div>
+                  <div class="srv-item-price">da 18€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Piega &amp; Messa in piega</h4><p>Asciugatura con spazzola, onde o liscio</p></div>
+                  <div class="srv-item-price">da 20€</div>
+                </div>
+              </div>
+              <div class="srv-cta">
+                <p>Vuoi prenotare un taglio? Scrivici su WhatsApp, risposta in pochi minuti.</p>
+                <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20prenotare%20un%20taglio." class="btn btn--whatsapp" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-whatsapp"></i> Prenota taglio
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-palette"></i></div>
-          <h3>Colore &amp; Meches</h3>
-          <p>Tinte, meches, balayage e ombre con prodotti di alta qualità che rispettano i tuoi capelli.</p>
+
+        <!-- COLORE -->
+        <div class="srv-card" id="scard-colore">
+          <div class="srv-card-header" onclick="srvCard('scard-colore')" role="button" aria-expanded="false" tabindex="0">
+            <div class="srv-card-icon"><i class="fa-solid fa-palette"></i></div>
+            <div class="srv-card-title">
+              <h3>Colore &amp; Tecniche</h3>
+              <span class="srv-card-label">Vedi Listino →</span>
+            </div>
+            <i class="fa-solid fa-chevron-down srv-card-chevron" aria-hidden="true"></i>
+          </div>
+          <div class="srv-card-body">
+            <div class="srv-card-body-inner">
+              <div class="srv-item-list">
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Tinta intera</h4><p>Copertura totale, colore uniforme e luminoso</p></div>
+                  <div class="srv-item-price">da 45€<span class="srv-item-note">escluso taglio</span></div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Meches &amp; Schiariture</h4><p>Meches classiche, decolorazioni parziali o totali</p></div>
+                  <div class="srv-item-price">da 50€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Balayage &amp; Shatush</h4><p>Effetto sole naturale, sfumatura mano libera</p></div>
+                  <div class="srv-item-price">da 80€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Ombre Hair / Color Melt</h4><p>Transizione cromatica sfumata su misura</p></div>
+                  <div class="srv-item-price">da 90€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Tono su tono</h4><p>Rinvigorisce il colore naturale, massima delicatezza</p></div>
+                  <div class="srv-item-price">da 35€</div>
+                </div>
+              </div>
+              <div class="srv-cta">
+                <p>Il preventivo varia in base alla lunghezza e densità dei capelli.</p>
+                <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20informazioni%20sul%20colore%20capelli." class="btn btn--whatsapp" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-whatsapp"></i> Chiedi preventivo
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-wand-sparkles"></i></div>
-          <h3>Trattamenti</h3>
-          <p>Cheratina, ricostruzione, idratazione profonda e trattamenti anti-caduta per capelli sani.</p>
+
+        <!-- TRATTAMENTI -->
+        <div class="srv-card" id="scard-trattamenti">
+          <div class="srv-card-header" onclick="srvCard('scard-trattamenti')" role="button" aria-expanded="false" tabindex="0">
+            <div class="srv-card-icon"><i class="fa-solid fa-wand-sparkles"></i></div>
+            <div class="srv-card-title">
+              <h3>Trattamenti Capillari</h3>
+              <span class="srv-card-label">Vedi Listino →</span>
+            </div>
+            <i class="fa-solid fa-chevron-down srv-card-chevron" aria-hidden="true"></i>
+          </div>
+          <div class="srv-card-body">
+            <div class="srv-card-body-inner">
+              <div class="srv-item-list">
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Cheratina</h4><p>Lisciatura duratura, elimina il crespo, lucentezza intensa</p></div>
+                  <div class="srv-item-price">da 120€<span class="srv-item-note">dura 3–5 mesi</span></div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Ricostruzione Capillare</h4><p>Trattamento ristrutturante per capelli danneggiati o sfibrati</p></div>
+                  <div class="srv-item-price">da 60€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Maschera Idratante</h4><p>Idratazione profonda con prodotti professionali</p></div>
+                  <div class="srv-item-price">da 25€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Trattamento Anti-caduta</h4><p>Protocollo professionale per capelli fragili e caduta stagionale</p></div>
+                  <div class="srv-item-price">da 40€</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-ring"></i></div>
-          <h3>Acconciature Sposa</h3>
-          <p>Il giorno più bello merita il look più bello. Acconciature su misura per spose e cerimonie.</p>
+
+        <!-- SPOSA -->
+        <div class="srv-card" id="scard-sposa">
+          <div class="srv-card-header" onclick="srvCard('scard-sposa')" role="button" aria-expanded="false" tabindex="0">
+            <div class="srv-card-icon"><i class="fa-solid fa-ring"></i></div>
+            <div class="srv-card-title">
+              <h3>Acconciature Sposa &amp; Cerimonie</h3>
+              <span class="srv-card-label">Vedi Listino →</span>
+            </div>
+            <i class="fa-solid fa-chevron-down srv-card-chevron" aria-hidden="true"></i>
+          </div>
+          <div class="srv-card-body">
+            <div class="srv-card-body-inner">
+              <div class="srv-item-list">
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Acconciatura Sposa</h4><p>Prova + giorno del matrimonio, consulenza personalizzata</p></div>
+                  <div class="srv-item-price">su preventivo<span class="srv-item-note">prova inclusa</span></div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Acconciatura Cerimonia</h4><p>Elegante e duratura per compleanni, comunioni, battesimi</p></div>
+                  <div class="srv-item-price">da 60€</div>
+                </div>
+                <div class="srv-item">
+                  <div class="srv-item-left"><h4>Prova Acconciatura</h4><p>Sessione dedicata per trovare il look perfetto</p></div>
+                  <div class="srv-item-price">da 40€</div>
+                </div>
+              </div>
+              <div class="srv-cta">
+                <p>Stai organizzando il tuo matrimonio? Pianifica la prova acconciatura.</p>
+                <a href="https://wa.me/393492401944?text=Ciao!%20Sono%20una%20sposa%20e%20vorrei%20informazioni%20sull'acconciatura." class="btn btn--whatsapp" target="_blank" rel="noopener">
+                  <i class="fa-brands fa-whatsapp"></i> Contattaci per il giorno speciale
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-child"></i></div>
-          <h3>Bambini &amp; Uomo</h3>
-          <p>Taglio uomo e bambino in un ambiente sereno e accogliente, per tutta la famiglia.</p>
-        </div>
-        <div class="service-card">
-          <div class="service-icon" aria-hidden="true"><i class="fa-solid fa-spa"></i></div>
-          <h3>Consulenza Capillare</h3>
-          <p>Analisi del capello personalizzata per trovare il trattamento perfetto per le tue esigenze.</p>
-        </div>
+
       </div>
 
-      <div class="text-center mt-32">
-        <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20prenotare%20un%20appuntamento%20al%20salone." class="btn btn--primary" target="_blank" rel="noopener">
-          <i class="fa-brands fa-whatsapp"></i> Prenota il tuo appuntamento
-        </a>
-      </div>
+      <p class="prices-note">
+        <i class="fa-solid fa-circle-info" style="color:var(--color-gold); margin-right:8px;"></i>
+        I prezzi sono indicativi e possono variare in base alla lunghezza, densità e condizione dei capelli.
+      </p>
     </div>
   </section>
+
+  <script>
+    function srvCard(id) {
+      var card  = document.getElementById(id);
+      var body  = card.querySelector('.srv-card-body');
+      var hdr   = card.querySelector('.srv-card-header');
+      var isOpen = card.classList.contains('is-open');
+      document.querySelectorAll('.srv-card').forEach(function(c) {
+        c.classList.remove('is-open');
+        c.querySelector('.srv-card-body').style.maxHeight = '0';
+        c.querySelector('.srv-card-header').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        card.classList.add('is-open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+        hdr.setAttribute('aria-expanded', 'true');
+      }
+    }
+    document.querySelectorAll('.srv-card-header').forEach(function(h) {
+      h.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); h.click(); }
+      });
+    });
+  </script>
 
   <!-- ===== BOUTIQUE ===== -->
   <style>
@@ -703,6 +948,10 @@
           <small style="color:var(--color-muted);">P.IVA 04826540165 · Via Primo Maggio 10, 24065 Lovere (BG)</small>
         </span>
         <span style="font-style:italic; color:var(--color-gold);">Sito realizzato da Giorgia Gelmini</span>
+        <span style="font-size:.72rem; color:var(--color-muted); text-align:center; line-height:1.6;">
+          © <span id="footerYearLegal"></span> Tentazioni Acconciature. Tutti i diritti riservati.
+          Ai sensi della Legge 633/1941 e delle normative UE, è vietata la riproduzione totale o parziale dei contenuti.
+        </span>
         <span>
           <a href="pages/privacy-policy.html" style="color:var(--color-muted); transition:color .2s;" onmouseover="this.style.color='var(--color-gold)'" onmouseout="this.style.color='var(--color-muted)'">Privacy Policy</a>
           &nbsp;·&nbsp;
