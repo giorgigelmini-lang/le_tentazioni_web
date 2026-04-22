@@ -1,0 +1,89 @@
+/* ============================================================
+   TENTAZIONI ACCONCIATURE — Cookie Banner Styles
+   ============================================================ */
+
+#cookieBanner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9000;
+  transform: translateY(100%);
+  transition: transform .4s cubic-bezier(.4,0,.2,1);
+  background: #1A1A1A;
+  border-top: 1px solid rgba(200,169,126,.3);
+}
+
+#cookieBanner.cookie-visible  { transform: translateY(0); }
+#cookieBanner.cookie-hidden   { transform: translateY(110%); }
+
+.cookie-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px 20px;
+}
+
+.cookie-text p {
+  font-size: .88rem;
+  color: rgba(253,250,246,.8);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.cookie-link {
+  color: #C8A97E;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color .2s;
+}
+.cookie-link:hover { color: #E8D5B5; }
+
+.cookie-actions {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.cookie-btn {
+  padding: 10px 22px;
+  border-radius: 9999px;
+  font-size: .82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  cursor: pointer;
+  transition: all .25s ease;
+  white-space: nowrap;
+  font-family: 'Lato', sans-serif;
+}
+
+.cookie-btn--primary {
+  background: #C8A97E;
+  color: #1A1A1A;
+  border: 2px solid #C8A97E;
+}
+.cookie-btn--primary:hover {
+  background: #A8864E;
+  border-color: #A8864E;
+  transform: translateY(-1px);
+}
+
+.cookie-btn--outline {
+  background: transparent;
+  color: rgba(253,250,246,.75);
+  border: 2px solid rgba(253,250,246,.3);
+}
+.cookie-btn--outline:hover {
+  border-color: rgba(253,250,246,.7);
+  color: #FDFAF6;
+}
+
+@media (max-width: 640px) {
+  .cookie-inner    { flex-direction: column; align-items: flex-start; }
+  .cookie-actions  { width: 100%; }
+  .cookie-btn      { flex: 1; text-align: center; }
+}
