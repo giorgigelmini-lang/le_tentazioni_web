@@ -848,6 +848,75 @@
     </div>
   </section>
 
+  <!-- ===== GIFT CARD ===== -->
+  <style>
+    .gift-card-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border: 1.5px solid var(--color-gold);
+      border-radius: var(--radius-lg);
+      padding: 56px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .gift-card-wrap::before {
+      content: '';
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 50% 0%, rgba(216,183,138,.12) 0%, transparent 70%);
+    }
+    .gift-icon-ring {
+      width: 80px; height: 80px;
+      background: var(--color-gold-light);
+      border: 2px solid var(--color-gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      font-size: 2rem; color: var(--color-gold);
+    }
+    .gift-card-wrap h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--color-dark); margin-bottom: 20px; line-height: 1.25;
+    }
+    .gift-card-wrap p {
+      font-size: 1rem; color: var(--color-muted);
+      line-height: 1.75; max-width: 520px; margin: 0 auto 36px;
+    }
+    .gift-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: .72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .16em; color: var(--color-gold);
+      border: 1px solid rgba(216,183,138,.5); border-radius: 100px;
+      padding: 6px 18px; margin-bottom: 32px;
+    }
+    @media (max-width: 600px) {
+      .gift-card-wrap { padding: 40px 24px; }
+    }
+  </style>
+
+  <section class="section section--white" aria-label="Gift Card Tentazioni">
+    <div class="container">
+      <div class="gift-card-wrap">
+        <span class="gift-tag"><i class="fa-solid fa-gift"></i> Regalo speciale</span>
+        <div class="gift-icon-ring" aria-hidden="true">
+          <i class="fa-solid fa-gift"></i>
+        </div>
+        <h2>Regala un'Esperienza</h2>
+        <p>
+          Sorprendi chi ami con un momento di puro benessere.<br>
+          Scegli il valore della Gift Card e regala un'esperienza firmata
+          <em style="color:var(--color-gold); font-style:italic;">Tentazioni Acconciature</em>:
+          cura, armonia e un tocco di lusso tutto per lei.
+        </p>
+        <a href="https://wa.me/393492401944?text=Ciao%20Elisabetta%2C%20vorrei%20informazioni%20per%20regalare%20una%20Gift%20Card!" class="btn btn--primary" target="_blank" rel="noopener" style="font-size:.95rem; padding:16px 38px;">
+          <i class="fa-solid fa-gift"></i>&nbsp; Richiedi Gift Card
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CONTATTI & ORARI ===== -->
   <section class="section section--cream" id="contatti" aria-labelledby="orari-heading">
     <div class="container">
