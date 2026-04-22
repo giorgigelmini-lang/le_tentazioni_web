@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Servizi — Tentazioni Acconciature | Parrucchiera Lovere (BG)</title>
+  <meta name="description" content="Scopri tutti i servizi di Tentazioni Acconciature a Lovere: taglio, colore, balayage, trattamenti capillari, acconciature sposa. Prenota su WhatsApp.">
+  <link rel="canonical" href="https://tentazioniacconciature.it/pages/servizi.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/cookie-banner.css">
+
+  <style>
+    .page-hero {
+      background: var(--color-dark);
+      padding: 140px 0 80px;
+      text-align: center;
+    }
+    .page-hero h1 { color: var(--color-cream); }
+    .page-hero p  { color: rgba(253,250,246,.7); max-width: 560px; margin: 16px auto 0; }
+
+    .category-section { margin-bottom: 72px; }
+    .category-section:last-child { margin-bottom: 0; }
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--color-cream-dark);
+    }
+    .category-header .icon {
+      width: 52px; height: 52px;
+      background: var(--color-gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--color-dark);
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .category-header h2 { font-size: 1.6rem; margin: 0; }
+
+    .service-list { display: flex; flex-direction: column; gap: 2px; }
+    .service-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 20px;
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      gap: 24px;
+      transition: var(--transition);
+    }
+    .service-item:hover { background: var(--color-cream-dark); }
+    .service-item-left h4 { font-size: 1rem; margin-bottom: 4px; }
+    .service-item-left p  { font-size: .85rem; color: var(--color-muted); margin: 0; }
+    .service-price {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      color: var(--color-gold);
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .price-note { font-size: .72rem; color: var(--color-muted); display: block; text-align: right; font-family: var(--font-body); font-weight: 400; }
+    .cta-strip {
+      background: var(--color-dark);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      text-align: center;
+      margin-top: 40px;
+    }
+    .cta-strip p { color: rgba(253,250,246,.7); margin-bottom: 20px; font-size: .95rem; }
+    .prices-disclaimer {
+      text-align: center;
+      font-size: .82rem;
+      color: var(--color-muted);
+      margin-top: 48px;
+      padding: 20px;
+      border: 1px dashed rgba(200,169,126,.3);
+      border-radius: var(--radius-md);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-overlay" id="navOverlay" role="presentation"></div>
+
+  <header class="site-header scrolled" id="siteHeader">
+    <div class="container header-inner">
+      <a href="../index.html" class="site-logo">
+        <img src="../assets/images/logo-tentazioni.png" alt="Tentazioni Acconciature" class="header-logo-img"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+        <span style="display:none;">Tentazioni <span style="color:var(--color-gold);">Acconciature</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks" role="navigation" aria-label="Menu principale">
+        <a href="../index.html">Home</a>
+        <a href="servizi.html" class="active">Servizi</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contatti.html">Contatti</a>
+        <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20prenotare%20un%20appuntamento." class="nav-tel" target="_blank" rel="noopener">
+          <i class="fa-brands fa-whatsapp"></i> Prenota
+        </a>
+      </nav>
+      <button class="nav-hamburger" id="navToggle" aria-label="Apri menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <span class="label" style="font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.2em;color:var(--color-gold);display:block;margin-bottom:12px;">Tentazioni Acconciature</span>
+      <h1>I nostri Servizi</h1>
+      <p>Dalla piega quotidiana all'acconciatura da sogno: ogni servizio è pensato per valorizzare la tua bellezza unica.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES CONTENT -->
+  <section class="section section--cream">
+    <div class="container" style="max-width:860px;">
+
+      <!-- TAGLIO -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="icon"><i class="fa-solid fa-scissors"></i></div>
+          <div>
+            <h2>Taglio &amp; Styling</h2>
+          </div>
+        </div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Taglio Donna</h4>
+              <p>Taglio personalizzato con consulenza stilistica inclusa</p>
+            </div>
+            <div class="service-price">
+              da 25€
+              <span class="price-note">inclusa piega</span>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Taglio Bambina (fino 10 anni)</h4>
+              <p>Taglio delicato in ambiente accogliente</p>
+            </div>
+            <div class="service-price">da 15€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Taglio Uomo</h4>
+              <p>Taglio classico o moderno con finitura</p>
+            </div>
+            <div class="service-price">da 18€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Piega &amp; Messa in piega</h4>
+              <p>Asciugatura con spazzola, onde o liscio</p>
+            </div>
+            <div class="service-price">da 20€</div>
+          </div>
+        </div>
+        <div class="cta-strip">
+          <p>Vuoi prenotare un taglio? Scrivici su WhatsApp, risposta in pochi minuti.</p>
+          <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20prenotare%20un%20taglio." class="btn btn--whatsapp" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Prenota taglio
+          </a>
+        </div>
+      </div>
+
+      <!-- COLORE -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="icon"><i class="fa-solid fa-palette"></i></div>
+          <div><h2>Colore &amp; Tecniche</h2></div>
+        </div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Tinta intera</h4>
+              <p>Copertura totale, colore uniforme e luminoso</p>
+            </div>
+            <div class="service-price">
+              da 45€
+              <span class="price-note">escluso taglio</span>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Meches &amp; Schiariture</h4>
+              <p>Meches classiche, decolorazioni parziali o totali</p>
+            </div>
+            <div class="service-price">da 50€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Balayage &amp; Shatush</h4>
+              <p>Effetto sole naturale, sfumatura mano libera</p>
+            </div>
+            <div class="service-price">da 80€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Ombre Hair / Color Melt</h4>
+              <p>Transizione cromatica sfumata su misura</p>
+            </div>
+            <div class="service-price">da 90€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Tono su tono</h4>
+              <p>Rinvigorisce il colore naturale, massima delicatezza</p>
+            </div>
+            <div class="service-price">da 35€</div>
+          </div>
+        </div>
+        <div class="cta-strip">
+          <p>Per il colore il preventivo varia in base alla lunghezza e densità. Contattaci per un preventivo personalizzato.</p>
+          <a href="https://wa.me/393492401944?text=Ciao!%20Vorrei%20informazioni%20sul%20colore%20capelli." class="btn btn--whatsapp" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Chiedi preventivo
+          </a>
+        </div>
+      </div>
+
+      <!-- TRATTAMENTI -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="icon"><i class="fa-solid fa-wand-sparkles"></i></div>
+          <div><h2>Trattamenti Capillari</h2></div>
+        </div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Cheratina</h4>
+              <p>Lisciatura duratura, elimina il crespo, lucentezza intensa</p>
+            </div>
+            <div class="service-price">
+              da 120€
+              <span class="price-note">dura 3–5 mesi</span>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Ricostruzione Capillare</h4>
+              <p>Trattamento ristrutturante per capelli danneggiati o sfibrati</p>
+            </div>
+            <div class="service-price">da 60€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Maschera Idratante</h4>
+              <p>Idratazione profonda con prodotti professionali</p>
+            </div>
+            <div class="service-price">da 25€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Trattamento Anti-caduta</h4>
+              <p>Protocollo professionale per capelli fragili e caduta stagionale</p>
+            </div>
+            <div class="service-price">da 40€</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACCONCIATURE SPOSA -->
+      <div class="category-section">
+        <div class="category-header">
+          <div class="icon"><i class="fa-solid fa-ring"></i></div>
+          <div><h2>Acconciature Sposa &amp; Cerimonie</h2></div>
+        </div>
+        <div class="service-list">
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Acconciatura Sposa</h4>
+              <p>Prova + giorno del matrimonio, consulenza personalizzata</p>
+            </div>
+            <div class="service-price">
+              su preventivo
+              <span class="price-note">prova inclusa</span>
+            </div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Acconciatura Cerimonia</h4>
+              <p>Elegante e duratura per compleanni, comunioni, battesimi</p>
+            </div>
+            <div class="service-price">da 60€</div>
+          </div>
+          <div class="service-item">
+            <div class="service-item-left">
+              <h4>Prova Acconciatura</h4>
+              <p>Sessione dedicata per trovare il look perfetto</p>
+            </div>
+            <div class="service-price">da 40€</div>
+          </div>
+        </div>
+        <div class="cta-strip">
+          <p>Stai organizzando il tuo matrimonio? Contattaci per pianificare la prova acconciatura.</p>
+          <a href="https://wa.me/393492401944?text=Ciao!%20Sono%20una%20sposa%20e%20vorrei%20informazioni%20sull'acconciatura." class="btn btn--whatsapp" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i> Contattaci per il giorno speciale
+          </a>
+        </div>
+      </div>
+
+      <!-- DISCLAIMER -->
+      <p class="prices-disclaimer">
+        <i class="fa-solid fa-circle-info" style="color:var(--color-gold); margin-right:8px;"></i>
+        I prezzi indicati sono da intendersi come punto di partenza e possono variare in base alla lunghezza, densità e condizione dei capelli.
+        Per un preventivo preciso contattaci su WhatsApp o vieni a trovarci in salone.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="site-logo">Tentazioni <span>Acconciature</span></span>
+          <p>Via Primo Maggio, 10 — 24065 Lovere (BG) · +39 349 240 1944</p>
+          <div class="flex" style="gap:8px; margin-top:12px; align-items:center;">
+            <span class="footer-stars">★★★★★</span>
+            <span style="color:var(--color-gold); font-weight:700;">5.0</span>
+            <span style="font-size:.8rem;">su Google</span>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Navigazione</h4>
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="servizi.html">Servizi</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contatti.html">Contatti</a></li>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contatti</h4>
+          <address>
+            Via Primo Maggio, 10<br>24065 Lovere (BG)<br>
+            <a href="tel:+393492401944">+39 349 240 1944</a>
+          </address>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>
+          © <span class="year"></span> Tentazioni Acconciature · Tentazioni di Rossi Elisabetta<br>
+          <small style="color:var(--color-muted);">P.IVA 04826540165 · Via Primo Maggio 10, 24065 Lovere (BG)</small>
+        </span>
+        <a href="privacy-policy.html" style="color:var(--color-muted);">Privacy Policy</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="whatsappBtn" aria-label="Prenota su WhatsApp"></div>
+  <div id="cookieBanner" role="dialog" aria-modal="true" aria-label="Consenso cookie"></div>
+
+  <script>document.querySelectorAll('.year').forEach(e=>e.textContent=new Date().getFullYear())</script>
+  <script src="../assets/js/main.js" defer></script>
+  <script src="../assets/js/cookie-banner.js" defer></script>
+  <script src="../assets/js/whatsapp-button.js" defer></script>
+</body>
+</html>
