@@ -546,6 +546,7 @@ var CLOSED_DAYS   = [0, 1]; // 0=Dom, 1=Lun
 var currentWeekStart = getMondayOf(new Date());
 var selectedDate     = todayISO();
 var weekCache        = {}; // { 'YYYY-MM-DD': [appointments] }
+var serviziCache     = []; // pre-loaded on login, reused in modal
 
 // ── AUTH ─────────────────────────────────────────
 function doLogin() {
@@ -763,50 +764,39 @@ function onBackdropClick(e) {
   if (e.target === document.getElementById('addModal')) closeAddModal();
 }
 
-function populateServizi() {
+function riempiSelect(rows) {
   var sel = document.getElementById('f-servizio');
-  if (!sel) { console.error('[Admin] <select id="f-servizio"> non trovato nel DOM'); return; }
-
-  console.log('[Admin] populateServizi() avviato');
-  console.log('[Admin] Supabase disponibile?', typeof Supabase !== 'undefined');
-
-  sel.innerHTML = '<option value="">⏳ Caricamento servizi...</option>';
-
-  if (typeof Supabase === 'undefined') {
-    console.error('[Admin] Supabase non è definito — supabase.js non caricato correttamente');
-    sel.innerHTML = '<option value="">⚠ Errore: script non caricato</option>';
+  if (!sel) return;
+  if (!rows || !rows.length) {
+    sel.innerHTML = '<option value="">— Nessun servizio trovato —</option>';
     return;
   }
+  sel.innerHTML = '<option value="">— Nessun servizio selezionato —</option>' +
+    rows.map(function (s) {
+      var p      = Number(s.prezzo);
+      var prezzo = (isNaN(p) || p === 0) ? 'su preventivo' : p + '€';
+      return '<option value="' + escHtml(String(s.id)) + '">' +
+        escHtml(s.nome) + ' — ' + prezzo + '</option>';
+    }).join('');
+}
 
+function populateServizi() {
+  console.log('[Admin] populateServizi() — serviziCache:', serviziCache.length);
+  if (serviziCache.length > 0) {
+    riempiSelect(serviziCache); // usa cache, nessuna fetch extra
+    return;
+  }
+  var sel = document.getElementById('f-servizio');
+  if (sel) sel.innerHTML = '<option value="">⏳ Caricamento...</option>';
   Supabase.fetchServizi()
     .then(function (rows) {
-      console.log('[Admin] fetchServizi() risposta:', rows);
-
-      if (!rows) {
-        console.warn('[Admin] rows è null/undefined');
-        sel.innerHTML = '<option value="">— Nessun servizio —</option>';
-        return;
-      }
-      if (!rows.length) {
-        console.warn('[Admin] rows è un array vuoto — la tabella servizi è vuota?');
-        sel.innerHTML = '<option value="">— Nessun servizio —</option>';
-        return;
-      }
-
-      console.log('[Admin] Servizi ricevuti:', rows.length, '— primo elemento:', rows[0]);
-
-      sel.innerHTML = '<option value="">— Nessun servizio selezionato —</option>' +
-        rows.map(function (s) {
-          var prezzo = (s.prezzo === 0 || s.prezzo === '0') ? 'su preventivo' : (s.prezzo ? s.prezzo + '€' : '');
-          var label  = s.nome + (prezzo ? ' — ' + prezzo : '');
-          return '<option value="' + escHtml(String(s.id)) + '">' + escHtml(label) + '</option>';
-        }).join('');
-
-      console.log('[Admin] Select popolato con', rows.length, 'opzioni');
+      console.log('[Admin] fetchServizi() risposta modale:', rows);
+      serviziCache = rows || [];
+      riempiSelect(serviziCache);
     })
     .catch(function (err) {
-      console.error('[Admin] fetchServizi() errore:', err);
-      sel.innerHTML = '<option value="">⚠ Errore caricamento servizi</option>';
+      console.error('[Admin] fetchServizi() errore modale:', err);
+      if (sel) sel.innerHTML = '<option value="">⚠ Errore — vedi console</option>';
     });
 }
 
@@ -912,6 +902,23 @@ function escHtml(s) {
 function initAdmin() {
   console.log('[Admin] initAdmin() avviato');
   console.log('[Admin] Supabase object:', typeof Supabase !== 'undefined' ? 'OK' : 'MANCANTE');
+
+  // Pre-fetch services immediately so modal dropdown is instant
+  if (typeof Supabase !== 'undefined') {
+    Supabase.fetchServizi()
+      .then(function (rows) {
+        serviziCache = rows || [];
+        console.log('[Admin] Pre-fetch servizi OK:', serviziCache.length, 'trovati');
+        if (serviziCache.length === 0) {
+          console.warn('[Admin] Tabella servizi vuota — eseguire supabase-seed.sql in Supabase → SQL Editor');
+        }
+      })
+      .catch(function (err) {
+        console.error('[Admin] Pre-fetch servizi ERRORE:', err);
+        console.error('[Admin] Verificare: 1) chiave anon corretta in supabase.js  2) RLS su tabella servizi (deve avere policy SELECT per anon)');
+      });
+  }
+
   // Set default date in form to today
   selectedDate = todayISO();
   // If today is a closed day, jump to nearest open day
