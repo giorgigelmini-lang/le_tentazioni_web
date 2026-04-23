@@ -764,14 +764,50 @@ function onBackdropClick(e) {
 }
 
 function populateServizi() {
-  Supabase.fetchServizi().then(function (rows) {
-    var sel = document.getElementById('f-servizio');
-    if (!rows || !rows.length) return;
-    sel.innerHTML = '<option value="">— Nessun servizio selezionato —</option>' +
-      rows.map(function (s) {
-        return '<option value="' + escHtml(String(s.id)) + '">' + escHtml(s.nome) + '</option>';
-      }).join('');
-  }).catch(function () {});
+  var sel = document.getElementById('f-servizio');
+  if (!sel) { console.error('[Admin] <select id="f-servizio"> non trovato nel DOM'); return; }
+
+  console.log('[Admin] populateServizi() avviato');
+  console.log('[Admin] Supabase disponibile?', typeof Supabase !== 'undefined');
+
+  sel.innerHTML = '<option value="">⏳ Caricamento servizi...</option>';
+
+  if (typeof Supabase === 'undefined') {
+    console.error('[Admin] Supabase non è definito — supabase.js non caricato correttamente');
+    sel.innerHTML = '<option value="">⚠ Errore: script non caricato</option>';
+    return;
+  }
+
+  Supabase.fetchServizi()
+    .then(function (rows) {
+      console.log('[Admin] fetchServizi() risposta:', rows);
+
+      if (!rows) {
+        console.warn('[Admin] rows è null/undefined');
+        sel.innerHTML = '<option value="">— Nessun servizio —</option>';
+        return;
+      }
+      if (!rows.length) {
+        console.warn('[Admin] rows è un array vuoto — la tabella servizi è vuota?');
+        sel.innerHTML = '<option value="">— Nessun servizio —</option>';
+        return;
+      }
+
+      console.log('[Admin] Servizi ricevuti:', rows.length, '— primo elemento:', rows[0]);
+
+      sel.innerHTML = '<option value="">— Nessun servizio selezionato —</option>' +
+        rows.map(function (s) {
+          var prezzo = (s.prezzo === 0 || s.prezzo === '0') ? 'su preventivo' : (s.prezzo ? s.prezzo + '€' : '');
+          var label  = s.nome + (prezzo ? ' — ' + prezzo : '');
+          return '<option value="' + escHtml(String(s.id)) + '">' + escHtml(label) + '</option>';
+        }).join('');
+
+      console.log('[Admin] Select popolato con', rows.length, 'opzioni');
+    })
+    .catch(function (err) {
+      console.error('[Admin] fetchServizi() errore:', err);
+      sel.innerHTML = '<option value="">⚠ Errore caricamento servizi</option>';
+    });
 }
 
 // ── TELEFONO ──────────────────────────────────────
@@ -874,6 +910,8 @@ function escHtml(s) {
 
 // ── INIT ──────────────────────────────────────────
 function initAdmin() {
+  console.log('[Admin] initAdmin() avviato');
+  console.log('[Admin] Supabase object:', typeof Supabase !== 'undefined' ? 'OK' : 'MANCANTE');
   // Set default date in form to today
   selectedDate = todayISO();
   // If today is a closed day, jump to nearest open day
