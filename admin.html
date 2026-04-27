@@ -262,6 +262,8 @@
     .appt-btn--del:hover { background: rgba(229,115,115,.18); color: var(--red); }
     .appt-btn--wa     { background: rgba(37,211,102,.12); color: #25D166; }
     .appt-btn--wa:hover { background: rgba(37,211,102,.25); }
+    .appt-btn--call   { background: rgba(100,181,246,.12); color: var(--blue); }
+    .appt-btn--call:hover { background: rgba(100,181,246,.25); }
     .appt-btn:disabled { opacity: .4; pointer-events: none; }
 
     /* ── EMPTY / LOADING ──────────────────────── */
@@ -694,10 +696,14 @@ function renderDayView() {
     var telHtml = a.cliente_telefono
       ? '<a class="appt-phone" href="tel:' + escHtml(a.cliente_telefono) + '"><i class="fa-solid fa-phone"></i> ' + escHtml(a.cliente_telefono) + '</a>'
       : '<span style="font-size:.78rem; color:var(--muted); opacity:.5;"><i class="fa-solid fa-bell-slash"></i> Nessun telefono — promemoria non disponibile</span>';
-    var waLink  = buildWaLink(a);
-    var waBtnHtml = waLink
+    var waLink     = buildWaLink(a);
+    var waBtnHtml  = waLink
       ? '<a href="' + waLink + '" target="_blank" rel="noopener" class="appt-btn appt-btn--wa">' +
-        '<i class="fa-brands fa-whatsapp"></i> Invia promemoria</a>'
+        '<i class="fa-brands fa-whatsapp"></i> WhatsApp</a>'
+      : '';
+    var callBtnHtml = a.cliente_telefono
+      ? '<a href="tel:' + escHtml(a.cliente_telefono) + '" class="appt-btn appt-btn--call">' +
+        '<i class="fa-solid fa-phone"></i> Chiama</a>'
       : '';
 
     return '<div class="appt-card" id="card-' + a.id + '">' +
@@ -710,7 +716,7 @@ function renderDayView() {
       '<p style="margin-top:6px;">' + telHtml + '</p>' +
       '<p class="appt-origine"><i class="fa-solid ' + origineIcon + '" style="font-size:.65rem;"></i> inserito ' + escHtml(a.origine || 'Manuale') + '</p>' +
       '<div class="appt-actions">' +
-      waBtnHtml +
+      waBtnHtml + callBtnHtml +
       '<button class="appt-btn appt-btn--del" onclick="deleteAppt(' + a.id + ')" title="Elimina">' +
       '<i class="fa-solid fa-trash"></i> Elimina</button>' +
       '</div></div>';
@@ -781,21 +787,19 @@ function riempiSelect(rows) {
 }
 
 function populateServizi() {
-  console.log('[Admin] populateServizi() — serviziCache:', serviziCache.length);
   if (serviziCache.length > 0) {
-    riempiSelect(serviziCache); // usa cache, nessuna fetch extra
+    riempiSelect(serviziCache);
     return;
   }
   var sel = document.getElementById('f-servizio');
   if (sel) sel.innerHTML = '<option value="">⏳ Caricamento...</option>';
   Supabase.fetchServizi()
     .then(function (rows) {
-      console.log('[Admin] fetchServizi() risposta modale:', rows);
       serviziCache = rows || [];
       riempiSelect(serviziCache);
     })
     .catch(function (err) {
-      console.error('[Admin] fetchServizi() errore modale:', err);
+      console.error('[Admin] fetchServizi() errore:', err);
       if (sel) sel.innerHTML = '<option value="">⚠ Errore — vedi console</option>';
     });
 }
@@ -900,23 +904,20 @@ function escHtml(s) {
 
 // ── INIT ──────────────────────────────────────────
 function initAdmin() {
-  console.log('[Admin] initAdmin() avviato');
-  console.log('[Admin] Supabase object:', typeof Supabase !== 'undefined' ? 'OK' : 'MANCANTE');
-
   // Pre-fetch services immediately so modal dropdown is instant
   if (typeof Supabase !== 'undefined') {
     Supabase.fetchServizi()
       .then(function (rows) {
         serviziCache = rows || [];
-        console.log('[Admin] Pre-fetch servizi OK:', serviziCache.length, 'trovati');
         if (serviziCache.length === 0) {
-          console.warn('[Admin] Tabella servizi vuota — eseguire supabase-seed.sql in Supabase → SQL Editor');
+          console.warn('[Admin] Tabella servizi vuota — eseguire supabase-seed.sql nel SQL Editor di Supabase');
         }
       })
       .catch(function (err) {
-        console.error('[Admin] Pre-fetch servizi ERRORE:', err);
-        console.error('[Admin] Verificare: 1) chiave anon corretta in supabase.js  2) RLS su tabella servizi (deve avere policy SELECT per anon)');
+        console.error('[Admin] Errore caricamento servizi:', err);
       });
+  } else {
+    console.error('[Admin] supabase.js non caricato — verificare il percorso assets/js/supabase.js');
   }
 
   // Set default date in form to today
